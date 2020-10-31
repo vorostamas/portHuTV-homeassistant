@@ -1,7 +1,7 @@
 """BlueprintEntity class"""
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from custom_components.blueprint.const import DOMAIN, NAME, VERSION
+from custom_components.porthutv.const import DOMAIN, NAME, VERSION
 
 
 class BlueprintEntity(CoordinatorEntity):

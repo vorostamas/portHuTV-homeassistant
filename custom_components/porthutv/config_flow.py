@@ -1,10 +1,10 @@
-"""Adds config flow for Blueprint."""
+"""Adds config flow for PortHuTV."""
 from homeassistant import config_entries
 from homeassistant.core import callback
 from sampleclient.client import Client
 import voluptuous as vol
 
-from custom_components.blueprint.const import (  # pylint: disable=unused-import
+from custom_components.porthutv.const import (  # pylint: disable=unused-import
     CONF_PASSWORD,
     CONF_USERNAME,
     DOMAIN,
@@ -13,7 +13,7 @@ from custom_components.blueprint.const import (  # pylint: disable=unused-import
 
 
 class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
-    """Config flow for Blueprint."""
+    """Config flow for PortHuTV."""
 
     VERSION = 1
     CONNECTION_CLASS = config_entries.CONN_CLASS_CLOUD_POLL
@@ -74,7 +74,7 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 
 
 class BlueprintOptionsFlowHandler(config_entries.OptionsFlow):
-    """Blueprint config flow options handler."""
+    """PortHuTv config flow options handler."""
 
     def __init__(self, config_entry):
         """Initialize HACS options flow."""
