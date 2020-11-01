@@ -1,0 +1,29 @@
+{
+    "config": {
+        "title": "Port.hu Tv",
+        "step": {
+            "user": {
+                "title": "Port.hu Tv",
+                "description": "If you need help with the configuration have a look here: https://github.com/vorostamas/portHuTV-homeassistant",
+                "data": {
+                    "channel_id": "TV Channel ID"
+                }
+            }
+        },
+        "error": {
+            "invalid_channel_id": "The Channel ID is wrong."
+        },
+        "abort": {
+            "single_instance_allowed": "Only a single configuration of PortHuTV is allowed."
+        }
+    },
+    "options": {
+        "step": {
+            "user": {
+                "data": {
+                    "sensor": "Sensor enabled"
+                }
+            }
+        }
+    }
+}

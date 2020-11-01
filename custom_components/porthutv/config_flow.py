@@ -1,19 +1,21 @@
-"""Adds config flow for Blueprint."""
+"""Adds config flow for PortHuTV."""
 from homeassistant import config_entries
 from homeassistant.core import callback
 from sampleclient.client import Client
 import voluptuous as vol
 
-from custom_components.blueprint.const import (  # pylint: disable=unused-import
-    CONF_PASSWORD,
-    CONF_USERNAME,
+from custom_components.porthutv.const import (
+    CONF_TV_CHANNEL_ID,
     DOMAIN,
     PLATFORMS,
 )
 
+from custom_components.porthutv.channel_id_validation import validate_channel_id
+from custom_components.porthutv.schedules import get_channel_name
+
 
 class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
-    """Config flow for Blueprint."""
+    """Config flow for PortHuTV."""
 
     VERSION = 1
     CONNECTION_CLASS = config_entries.CONN_CLASS_CLOUD_POLL
@@ -33,15 +35,13 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         #     return self.async_abort(reason="single_instance_allowed")
 
         if user_input is not None:
-            valid = await self._test_credentials(
-                user_input[CONF_USERNAME], user_input[CONF_PASSWORD]
-            )
+            valid = await self._validate_input(user_input[CONF_TV_CHANNEL_ID])
             if valid:
-                return self.async_create_entry(
-                    title=user_input[CONF_USERNAME], data=user_input
-                )
+                channel_name = get_channel_name(user_input[CONF_TV_CHANNEL_ID])
+                user_input["channel_name"] = channel_name
+                return self.async_create_entry(title=channel_name, data=user_input)
             else:
-                self._errors["base"] = "auth"
+                self._errors["base"] = "invalid_channel_id"
 
             return await self._show_config_form(user_input)
 
@@ -56,25 +56,17 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         """Show the configuration form to edit location data."""
         return self.async_show_form(
             step_id="user",
-            data_schema=vol.Schema(
-                {vol.Required(CONF_USERNAME): str, vol.Required(CONF_PASSWORD): str}
-            ),
+            data_schema=vol.Schema({vol.Required(CONF_TV_CHANNEL_ID): str}),
             errors=self._errors,
         )
 
-    async def _test_credentials(self, username, password):
-        """Return true if credentials is valid."""
-        try:
-            client = Client(username, password)
-            await client.async_get_data()
-            return True
-        except Exception:  # pylint: disable=broad-except
-            pass
-        return False
+    async def _validate_input(self, channel_id):
+        """Return true if channel ID is valid."""
+        return validate_channel_id(channel_id)
 
 
 class BlueprintOptionsFlowHandler(config_entries.OptionsFlow):
-    """Blueprint config flow options handler."""
+    """PortHuTv config flow options handler."""
 
     def __init__(self, config_entry):
         """Initialize HACS options flow."""
@@ -104,5 +96,5 @@ class BlueprintOptionsFlowHandler(config_entries.OptionsFlow):
     async def _update_options(self):
         """Update config entry options."""
         return self.async_create_entry(
-            title=self.config_entry.data.get(CONF_USERNAME), data=self.options
+            title=self.config_entry.data.get(CONF_TV_CHANNEL_ID), data=self.options
         )

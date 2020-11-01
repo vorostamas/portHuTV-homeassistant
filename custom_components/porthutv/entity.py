@@ -1,7 +1,7 @@
 """BlueprintEntity class"""
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from custom_components.blueprint.const import DOMAIN, NAME, VERSION
+from custom_components.porthutv.const import DOMAIN, NAME, VERSION
 
 
 class BlueprintEntity(CoordinatorEntity):
@@ -26,7 +26,4 @@ class BlueprintEntity(CoordinatorEntity):
     @property
     def device_state_attributes(self):
         """Return the state attributes."""
-        return {
-            "time": str(self.coordinator.data.get("time")),
-            "static": self.coordinator.data.get("static"),
-        }
+        return {"schedule": self.coordinator.data.get("schedule")}

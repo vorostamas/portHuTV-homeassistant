@@ -1,0 +1,12 @@
+{
+  "domain": "porthutv",
+  "name": "Port.hu TV",
+  "documentation": "https://github.com/vorostamas/portHuTV-homeassistants",
+  "issue_tracker": "https://github.com/vorostamas/porthutv/issues",
+  "dependencies": [],
+  "config_flow": true,
+  "codeowners": [
+    "@vorostamas"
+  ],
+  "requirements": []
+}
