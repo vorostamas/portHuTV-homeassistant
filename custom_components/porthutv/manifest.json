@@ -8,7 +8,5 @@
   "codeowners": [
     "@vorostamas"
   ],
-  "requirements": [
-    "sampleclient"
-  ]
+  "requirements": []
 }

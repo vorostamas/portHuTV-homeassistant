@@ -26,7 +26,4 @@ class BlueprintEntity(CoordinatorEntity):
     @property
     def device_state_attributes(self):
         """Return the state attributes."""
-        return {
-            "time": str(self.coordinator.data.get("time")),
-            "static": self.coordinator.data.get("static"),
-        }
+        return {"static": self.coordinator.data.get("static")}

@@ -12,7 +12,6 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import Config, HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
-from sampleclient.client import Client
 
 from custom_components.porthutv.const import (
     CONF_TV_CHANNEL,
@@ -65,7 +64,6 @@ class BlueprintDataUpdateCoordinator(DataUpdateCoordinator):
 
     def __init__(self, hass, channel):
         """Initialize."""
-        self.api = Client(channel, "password")
         self.platforms = []
         self.channel = channel
 
@@ -75,8 +73,8 @@ class BlueprintDataUpdateCoordinator(DataUpdateCoordinator):
         """Update data via library."""
         try:
             _LOGGER.debug("Channel ID: %s", self.channel)
-            data = await self.api.async_get_data()
-            return data.get("data", {})
+            data = {"static": "Some sample static text."}
+            return data
         except Exception as exception:
             raise UpdateFailed(exception)
 
