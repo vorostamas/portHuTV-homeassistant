@@ -1,6 +1,6 @@
 import json
 
-CHANNEL_MAPPING_FILE_PATH = "custom_components/porthutv/channel_mapping.json"
+from custom_components.porthutv.const import CHANNEL_MAPPING_FILE_PATH
 
 
 def validate_channel_id(channel_id):

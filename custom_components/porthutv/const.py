@@ -23,6 +23,9 @@ CONF_PASSWORD = "password"
 # Defaults
 DEFAULT_NAME = DOMAIN
 
+# Other
+CHANNEL_MAPPING_FILE_PATH = "custom_components/porthutv/channel_mapping.json"
+
 
 STARTUP_MESSAGE = f"""
 -------------------------------------------------------------------
