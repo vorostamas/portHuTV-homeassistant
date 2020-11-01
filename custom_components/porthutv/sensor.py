@@ -15,7 +15,7 @@ class BlueprintSensor(BlueprintEntity):
     @property
     def name(self):
         """Return the name of the sensor."""
-        return f"{DEFAULT_NAME}_{SENSOR}"
+        return self.coordinator.data.get("channel_name")
 
     @property
     def state(self):

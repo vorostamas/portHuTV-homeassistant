@@ -83,7 +83,7 @@ class BlueprintDataUpdateCoordinator(DataUpdateCoordinator):
             schedules = get_schedules(self.channel_id)
             _LOGGER.debug("Schedules: %s", schedules)
 
-            data = {"static": "Some sample static text."}
+            data = {"channel_name": self.channel_name, "static": "Some sample static text."}
             return data
         except Exception as exception:
             raise UpdateFailed(exception)
