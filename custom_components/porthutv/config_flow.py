@@ -11,6 +11,7 @@ from custom_components.porthutv.const import (
 )
 
 from custom_components.porthutv.channel_id_validation import validate_channel_id
+from custom_components.porthutv.schedules import get_channel_name
 
 
 class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
@@ -36,9 +37,8 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             valid = await self._test_channel_id(user_input[CONF_TV_CHANNEL])
             if valid:
-                return self.async_create_entry(
-                    title=user_input[CONF_TV_CHANNEL], data=user_input
-                )
+                channel_name = get_channel_name(user_input[CONF_TV_CHANNEL])
+                return self.async_create_entry(title=channel_name, data=user_input)
             else:
                 self._errors["base"] = "invalid_channel_id"
 

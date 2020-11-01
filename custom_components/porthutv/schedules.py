@@ -33,6 +33,6 @@ def get_channel_name(channel_id):
     """
     Exctract the name of the channel from the channel ID.
     """
-    channel_data = get_channel_data(channel_id)
+    channel_data = get_channel_data(channel_id)  # TODO: fallback to channel id
     key = get_key(channel_data)
     return channel_data[key]["channels"][0]["name"]
