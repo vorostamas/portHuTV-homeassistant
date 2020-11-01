@@ -35,7 +35,7 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         #     return self.async_abort(reason="single_instance_allowed")
 
         if user_input is not None:
-            valid = await self._test_channel_id(user_input[CONF_TV_CHANNEL])
+            valid = await self._validate_input(user_input[CONF_TV_CHANNEL])
             if valid:
                 channel_name = get_channel_name(user_input[CONF_TV_CHANNEL])
                 return self.async_create_entry(title=channel_name, data=user_input)
@@ -59,7 +59,7 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             errors=self._errors,
         )
 
-    async def _test_channel_id(self, channel_id):
+    async def _validate_input(self, channel_id):
         """Return true if channel ID is valid."""
         return validate_channel_id(channel_id)
 
