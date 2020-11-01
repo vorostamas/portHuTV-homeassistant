@@ -20,7 +20,7 @@ class BlueprintSensor(BlueprintEntity):
     @property
     def state(self):
         """Return the state of the sensor."""
-        return self.coordinator.data.get("static")
+        return self.coordinator.data.get("channel_name")
 
     @property
     def icon(self):
