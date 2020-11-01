@@ -4,8 +4,7 @@ from homeassistant.core import callback
 from sampleclient.client import Client
 import voluptuous as vol
 
-from custom_components.porthutv.const import (  # pylint: disable=unused-import
-    CONF_PASSWORD,
+from custom_components.porthutv.const import (
     CONF_TV_CHANNEL,
     DOMAIN,
     PLATFORMS,
@@ -35,9 +34,7 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         #     return self.async_abort(reason="single_instance_allowed")
 
         if user_input is not None:
-            valid = await self._test_channel_id(
-                user_input[CONF_TV_CHANNEL], user_input[CONF_PASSWORD]
-            )
+            valid = await self._test_channel_id(user_input[CONF_TV_CHANNEL])
             if valid:
                 return self.async_create_entry(
                     title=user_input[CONF_TV_CHANNEL], data=user_input
@@ -58,13 +55,11 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         """Show the configuration form to edit location data."""
         return self.async_show_form(
             step_id="user",
-            data_schema=vol.Schema(
-                {vol.Required(CONF_TV_CHANNEL): str, vol.Required(CONF_PASSWORD): str}
-            ),
+            data_schema=vol.Schema({vol.Required(CONF_TV_CHANNEL): str}),
             errors=self._errors,
         )
 
-    async def _test_channel_id(self, channel_id, password):
+    async def _test_channel_id(self, channel_id):
         """Return true if channel ID is valid."""
         return validate_channel_id(channel_id)
 

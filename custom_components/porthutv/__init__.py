@@ -15,7 +15,6 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 from sampleclient.client import Client
 
 from custom_components.porthutv.const import (
-    CONF_PASSWORD,
     CONF_TV_CHANNEL,
     DOMAIN,
     PLATFORMS,
@@ -41,11 +40,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
         _LOGGER.info(STARTUP_MESSAGE)
 
     channel = entry.data.get(CONF_TV_CHANNEL)
-    password = entry.data.get(CONF_PASSWORD)
 
-    coordinator = BlueprintDataUpdateCoordinator(
-        hass, channel=channel, password=password
-    )
+    coordinator = BlueprintDataUpdateCoordinator(hass, channel=channel)
     await coordinator.async_refresh()
 
     if not coordinator.last_update_success:
@@ -67,9 +63,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
 class BlueprintDataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching data from the API."""
 
-    def __init__(self, hass, channel, password):
+    def __init__(self, hass, channel):
         """Initialize."""
-        self.api = Client(channel, password)
+        self.api = Client(channel, "password")
         self.platforms = []
         self.channel = channel
 
