@@ -23,7 +23,7 @@ from custom_components.porthutv.const import (
 
 from custom_components.porthutv.schedules import get_schedules
 
-SCAN_INTERVAL = timedelta(seconds=30)
+SCAN_INTERVAL = timedelta(minutes=30)
 
 _LOGGER = logging.getLogger(__name__)
 
