@@ -18,8 +18,6 @@ Platform | Description
 -- | --
 `sensor` | Show info of a TV channel.
 
-***
-
 ## Installation
 
 <details>
@@ -46,8 +44,6 @@ Platform | Description
 6. Restart Home Assistant
 7. In the HA UI go to "Configuration" -> "Integrations" click "+" and search for "Port.hu TV"
 </details>
-
-***
 
 ## Configuration in the UI
 You need to add the channel ID of the TV channel. You can check the channel ID in the `channel_mapping.json` file.
@@ -77,8 +73,6 @@ One possible way to show the schedules on the UI is using [List Card](https://gi
 
 ![list-card-example]
 </details>
-
-***
 
 ## Contributions are welcome!
 
