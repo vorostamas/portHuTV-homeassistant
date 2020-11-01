@@ -11,6 +11,8 @@ from custom_components.porthutv.const import (  # pylint: disable=unused-import
     PLATFORMS,
 )
 
+from custom_components.porthutv.channel_id_validation import validate_channel_id
+
 
 class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     """Config flow for PortHuTV."""
@@ -41,7 +43,7 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     title=user_input[CONF_TV_CHANNEL], data=user_input
                 )
             else:
-                self._errors["base"] = "auth"
+                self._errors["base"] = "invalid_channel_id"
 
             return await self._show_config_form(user_input)
 
@@ -64,14 +66,7 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 
     async def _test_channel_id(self, channel_id, password):
         """Return true if channel ID is valid."""
-        # TODO: implement channel ID validation.
-        try:
-            client = Client(channel_id, password)
-            await client.async_get_data()
-            return True
-        except Exception:  # pylint: disable=broad-except
-            pass
-        return False
+        return validate_channel_id(channel_id)
 
 
 class BlueprintOptionsFlowHandler(config_entries.OptionsFlow):

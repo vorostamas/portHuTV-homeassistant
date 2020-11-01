@@ -12,7 +12,7 @@
             }
         },
         "error": {
-            "auth": "Username/Password is wrong."
+            "invalid_channel_id": "The Channel ID is wrong."
         },
         "abort": {
             "single_instance_allowed": "Only a single configuration of PortHuTV is allowed."
