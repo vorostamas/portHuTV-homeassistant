@@ -22,6 +22,8 @@ from custom_components.porthutv.const import (
     STARTUP_MESSAGE,
 )
 
+from custom_components.porthutv.schedules import get_channel_name
+
 SCAN_INTERVAL = timedelta(seconds=30)
 
 _LOGGER = logging.getLogger(__name__)
@@ -75,6 +77,8 @@ class BlueprintDataUpdateCoordinator(DataUpdateCoordinator):
     async def _async_update_data(self):
         """Update data via library."""
         try:
+            channel_name = get_channel_name("tvchannel-1")
+            _LOGGER.debug("Channel name: %s", channel_name)
             data = await self.api.async_get_data()
             return data.get("data", {})
         except Exception as exception:
