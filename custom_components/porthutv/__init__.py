@@ -21,7 +21,7 @@ from custom_components.porthutv.const import (
     STARTUP_MESSAGE,
 )
 
-from custom_components.porthutv.schedules import get_channel_name
+from custom_components.porthutv.schedules import get_schedules
 
 SCAN_INTERVAL = timedelta(seconds=30)
 
@@ -79,6 +79,10 @@ class BlueprintDataUpdateCoordinator(DataUpdateCoordinator):
         try:
             _LOGGER.debug("Channel ID: %s", self.channel_id)
             _LOGGER.debug("Channel Name: %s", self.channel_name)
+
+            schedules = get_schedules(self.channel_id)
+            _LOGGER.debug("Schedules: %s", schedules)
+
             data = {"static": "Some sample static text."}
             return data
         except Exception as exception:

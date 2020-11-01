@@ -25,6 +25,10 @@ DEFAULT_NAME = DOMAIN
 
 # Other
 CHANNEL_MAPPING_FILE_PATH = "custom_components/porthutv/channel_mapping.json"
+BASE_URL = "http://port.hu"
+CHANNEL_DATA_URL = (
+    "https://port.hu/tvapi?channel_id={}&i_datetime_from={}&i_datetime_to={}"
+)
 
 
 STARTUP_MESSAGE = f"""
