@@ -17,7 +17,7 @@ PLATFORMS = [SENSOR]
 
 # Configuration and options
 CONF_ENABLED = "enabled"
-CONF_USERNAME = "username"
+CONF_TV_CHANNEL = "channel"
 CONF_PASSWORD = "password"
 
 # Defaults

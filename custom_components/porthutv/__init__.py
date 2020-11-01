@@ -16,7 +16,7 @@ from sampleclient.client import Client
 
 from custom_components.porthutv.const import (
     CONF_PASSWORD,
-    CONF_USERNAME,
+    CONF_TV_CHANNEL,
     DOMAIN,
     PLATFORMS,
     STARTUP_MESSAGE,
@@ -40,11 +40,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
         hass.data.setdefault(DOMAIN, {})
         _LOGGER.info(STARTUP_MESSAGE)
 
-    username = entry.data.get(CONF_USERNAME)
+    channel = entry.data.get(CONF_TV_CHANNEL)
     password = entry.data.get(CONF_PASSWORD)
 
     coordinator = BlueprintDataUpdateCoordinator(
-        hass, username=username, password=password
+        hass, channel=channel, password=password
     )
     await coordinator.async_refresh()
 
@@ -67,18 +67,18 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
 class BlueprintDataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching data from the API."""
 
-    def __init__(self, hass, username, password):
+    def __init__(self, hass, channel, password):
         """Initialize."""
-        self.api = Client(username, password)
+        self.api = Client(channel, password)
         self.platforms = []
+        self.channel = channel
 
         super().__init__(hass, _LOGGER, name=DOMAIN, update_interval=SCAN_INTERVAL)
 
     async def _async_update_data(self):
         """Update data via library."""
         try:
-            channel_name = get_channel_name("tvchannel-1")
-            _LOGGER.debug("Channel name: %s", channel_name)
+            _LOGGER.debug("Channel ID: %s", self.channel)
             data = await self.api.async_get_data()
             return data.get("data", {})
         except Exception as exception:

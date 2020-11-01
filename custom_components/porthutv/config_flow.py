@@ -6,7 +6,7 @@ import voluptuous as vol
 
 from custom_components.porthutv.const import (  # pylint: disable=unused-import
     CONF_PASSWORD,
-    CONF_USERNAME,
+    CONF_TV_CHANNEL,
     DOMAIN,
     PLATFORMS,
 )
@@ -33,12 +33,12 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         #     return self.async_abort(reason="single_instance_allowed")
 
         if user_input is not None:
-            valid = await self._test_credentials(
-                user_input[CONF_USERNAME], user_input[CONF_PASSWORD]
+            valid = await self._test_channel_id(
+                user_input[CONF_TV_CHANNEL], user_input[CONF_PASSWORD]
             )
             if valid:
                 return self.async_create_entry(
-                    title=user_input[CONF_USERNAME], data=user_input
+                    title=user_input[CONF_TV_CHANNEL], data=user_input
                 )
             else:
                 self._errors["base"] = "auth"
@@ -57,15 +57,16 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         return self.async_show_form(
             step_id="user",
             data_schema=vol.Schema(
-                {vol.Required(CONF_USERNAME): str, vol.Required(CONF_PASSWORD): str}
+                {vol.Required(CONF_TV_CHANNEL): str, vol.Required(CONF_PASSWORD): str}
             ),
             errors=self._errors,
         )
 
-    async def _test_credentials(self, username, password):
-        """Return true if credentials is valid."""
+    async def _test_channel_id(self, channel_id, password):
+        """Return true if channel ID is valid."""
+        # TODO: implement channel ID validation.
         try:
-            client = Client(username, password)
+            client = Client(channel_id, password)
             await client.async_get_data()
             return True
         except Exception:  # pylint: disable=broad-except
@@ -104,5 +105,5 @@ class BlueprintOptionsFlowHandler(config_entries.OptionsFlow):
     async def _update_options(self):
         """Update config entry options."""
         return self.async_create_entry(
-            title=self.config_entry.data.get(CONF_USERNAME), data=self.options
+            title=self.config_entry.data.get(CONF_TV_CHANNEL), data=self.options
         )
