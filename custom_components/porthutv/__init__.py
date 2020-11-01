@@ -80,10 +80,10 @@ class BlueprintDataUpdateCoordinator(DataUpdateCoordinator):
             _LOGGER.debug("Channel ID: %s", self.channel_id)
             _LOGGER.debug("Channel Name: %s", self.channel_name)
 
-            schedules = get_schedules(self.channel_id)
-            _LOGGER.debug("Schedules: %s", schedules)
+            schedule = get_schedules(self.channel_id)
+            # _LOGGER.debug("Schedule: %s", schedule)
 
-            data = {"channel_name": self.channel_name, "static": "Some sample static text."}
+            data = {"channel_name": self.channel_name, "schedule": schedule}
             return data
         except Exception as exception:
             raise UpdateFailed(exception)
