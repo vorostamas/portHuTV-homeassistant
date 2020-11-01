@@ -17,7 +17,8 @@ PLATFORMS = [SENSOR]
 
 # Configuration and options
 CONF_ENABLED = "enabled"
-CONF_TV_CHANNEL = "channel"
+CONF_TV_CHANNEL_ID = "channel_id"
+CONF_TV_CHANNEL_NAME = "channel_name"
 
 # Defaults
 DEFAULT_NAME = DOMAIN

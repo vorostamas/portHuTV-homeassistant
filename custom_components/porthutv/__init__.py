@@ -14,7 +14,8 @@ from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from custom_components.porthutv.const import (
-    CONF_TV_CHANNEL,
+    CONF_TV_CHANNEL_ID,
+    CONF_TV_CHANNEL_NAME,
     DOMAIN,
     PLATFORMS,
     STARTUP_MESSAGE,
@@ -38,9 +39,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
         hass.data.setdefault(DOMAIN, {})
         _LOGGER.info(STARTUP_MESSAGE)
 
-    channel = entry.data.get(CONF_TV_CHANNEL)
+    channel_id = entry.data.get(CONF_TV_CHANNEL_ID)
+    channel_name = entry.data.get(CONF_TV_CHANNEL_NAME)
 
-    coordinator = BlueprintDataUpdateCoordinator(hass, channel=channel)
+    coordinator = BlueprintDataUpdateCoordinator(
+        hass, channel_id=channel_id, channel_name=channel_name
+    )
     await coordinator.async_refresh()
 
     if not coordinator.last_update_success:
@@ -62,17 +66,19 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
 class BlueprintDataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching data from the API."""
 
-    def __init__(self, hass, channel):
+    def __init__(self, hass, channel_id, channel_name):
         """Initialize."""
         self.platforms = []
-        self.channel = channel
+        self.channel_id = channel_id
+        self.channel_name = channel_name
 
         super().__init__(hass, _LOGGER, name=DOMAIN, update_interval=SCAN_INTERVAL)
 
     async def _async_update_data(self):
         """Update data via library."""
         try:
-            _LOGGER.debug("Channel ID: %s", self.channel)
+            _LOGGER.debug("Channel ID: %s", self.channel_id)
+            _LOGGER.debug("Channel Name: %s", self.channel_name)
             data = {"static": "Some sample static text."}
             return data
         except Exception as exception:

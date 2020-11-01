@@ -5,7 +5,7 @@ from sampleclient.client import Client
 import voluptuous as vol
 
 from custom_components.porthutv.const import (
-    CONF_TV_CHANNEL,
+    CONF_TV_CHANNEL_ID,
     DOMAIN,
     PLATFORMS,
 )
@@ -35,9 +35,10 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         #     return self.async_abort(reason="single_instance_allowed")
 
         if user_input is not None:
-            valid = await self._validate_input(user_input[CONF_TV_CHANNEL])
+            valid = await self._validate_input(user_input[CONF_TV_CHANNEL_ID])
             if valid:
-                channel_name = get_channel_name(user_input[CONF_TV_CHANNEL])
+                channel_name = get_channel_name(user_input[CONF_TV_CHANNEL_ID])
+                user_input["channel_name"] = channel_name
                 return self.async_create_entry(title=channel_name, data=user_input)
             else:
                 self._errors["base"] = "invalid_channel_id"
@@ -55,7 +56,7 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         """Show the configuration form to edit location data."""
         return self.async_show_form(
             step_id="user",
-            data_schema=vol.Schema({vol.Required(CONF_TV_CHANNEL): str}),
+            data_schema=vol.Schema({vol.Required(CONF_TV_CHANNEL_ID): str}),
             errors=self._errors,
         )
 
@@ -95,5 +96,5 @@ class BlueprintOptionsFlowHandler(config_entries.OptionsFlow):
     async def _update_options(self):
         """Update config entry options."""
         return self.async_create_entry(
-            title=self.config_entry.data.get(CONF_TV_CHANNEL), data=self.options
+            title=self.config_entry.data.get(CONF_TV_CHANNEL_ID), data=self.options
         )
