@@ -14,7 +14,7 @@ from custom_components.porthutv.channel_id_validation import validate_channel_id
 from custom_components.porthutv.schedules import get_channel_name
 
 
-class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
+class PortHuTvFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     """Config flow for PortHuTV."""
 
     VERSION = 1
