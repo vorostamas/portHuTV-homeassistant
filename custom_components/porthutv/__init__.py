@@ -42,7 +42,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     channel_id = entry.data.get(CONF_TV_CHANNEL_ID)
     channel_name = entry.data.get(CONF_TV_CHANNEL_NAME)
 
-    coordinator = BlueprintDataUpdateCoordinator(
+    coordinator = PortHuTvDataUpdateCoordinator(
         hass, channel_id=channel_id, channel_name=channel_name
     )
     await coordinator.async_refresh()
@@ -63,7 +63,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     return True
 
 
-class BlueprintDataUpdateCoordinator(DataUpdateCoordinator):
+class PortHuTvDataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching data from the API."""
 
     def __init__(self, hass, channel_id, channel_name):
