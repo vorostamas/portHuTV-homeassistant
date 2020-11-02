@@ -28,7 +28,7 @@ Platform | Description
 
 ## Configuration is done in the UI
 
-You need to add the channel ID of the TV channel. You can check the channel ID in the `channel_mapping.json` file.
+You need to add the channel ID of the TV channel. You can check the channel ID in the [`channel_mapping.json`](https://github.com/vorostamas/portHuTV-homeassistant/blob/master/custom_components/porthutv/channel_mapping.json) file.
 
 ***
 
