@@ -1,10 +1,10 @@
-"""BlueprintEntity class"""
+"""PortHuTvEntity class"""
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from custom_components.porthutv.const import DOMAIN, NAME, VERSION
 
 
-class BlueprintEntity(CoordinatorEntity):
+class PortHuTvEntity(CoordinatorEntity):
     def __init__(self, coordinator, config_entry):
         super().__init__(coordinator)
         self.config_entry = config_entry
