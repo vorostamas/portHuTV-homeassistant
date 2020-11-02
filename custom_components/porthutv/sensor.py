@@ -1,15 +1,15 @@
 """Sensor platform for porthutv."""
 from custom_components.porthutv.const import DEFAULT_NAME, DOMAIN, ICON, SENSOR
-from custom_components.porthutv.entity import BlueprintEntity
+from custom_components.porthutv.entity import PortHuTvEntity
 
 
 async def async_setup_entry(hass, entry, async_add_devices):
     """Setup sensor platform."""
     coordinator = hass.data[DOMAIN][entry.entry_id]
-    async_add_devices([BlueprintSensor(coordinator, entry)])
+    async_add_devices([PortHuTvSensor(coordinator, entry)])
 
 
-class BlueprintSensor(BlueprintEntity):
+class PortHuTvSensor(PortHuTvEntity):
     """porthutv Sensor class."""
 
     @property

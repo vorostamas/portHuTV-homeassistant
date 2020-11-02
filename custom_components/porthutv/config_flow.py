@@ -14,7 +14,7 @@ from custom_components.porthutv.channel_id_validation import validate_channel_id
 from custom_components.porthutv.schedules import get_channel_name
 
 
-class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
+class PortHuTvFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     """Config flow for PortHuTV."""
 
     VERSION = 1
@@ -50,7 +50,7 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     @staticmethod
     @callback
     def async_get_options_flow(config_entry):
-        return BlueprintOptionsFlowHandler(config_entry)
+        return PortHuTvOptionsFlowHandler(config_entry)
 
     async def _show_config_form(self, user_input):  # pylint: disable=unused-argument
         """Show the configuration form to edit location data."""
@@ -65,7 +65,7 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         return validate_channel_id(channel_id)
 
 
-class BlueprintOptionsFlowHandler(config_entries.OptionsFlow):
+class PortHuTvOptionsFlowHandler(config_entries.OptionsFlow):
     """PortHuTv config flow options handler."""
 
     def __init__(self, config_entry):
