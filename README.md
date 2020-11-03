@@ -75,7 +75,8 @@ One possible way to show the schedules on the UI is using [List Card](https://gi
 </details>
 
 ## Notes
-You may want to exclude the sensor from [`recorder`](https://www.home-assistant.io/integrations/recorder/), because Home Assistant will store the states in the database.
+- Some channels provide schedules for only daytime. For example, `tvchannel-2` schedule ends at 19:50, and there is a corresponding evening channel `tvchannel-361` starts after 19:50.
+- You may want to exclude the sensor from [`recorder`](https://www.home-assistant.io/integrations/recorder/), because Home Assistant will store the states in the database.
 
 
 ## Contributions are welcome!
