@@ -3,7 +3,7 @@
 NAME = "PortHuTv"
 DOMAIN = "porthutv"
 DOMAIN_DATA = f"{DOMAIN}_data"
-VERSION = "1.0.2"
+VERSION = "1.0.3"
 
 ISSUE_URL = "https://github.com/vorostamas/portHuTV-homeassistant/issues"
 
