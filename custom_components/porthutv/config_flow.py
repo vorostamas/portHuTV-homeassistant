@@ -1,7 +1,6 @@
 """Adds config flow for PortHuTV."""
 from homeassistant import config_entries
 from homeassistant.core import callback
-from sampleclient.client import Client
 import voluptuous as vol
 
 from custom_components.porthutv.const import (
