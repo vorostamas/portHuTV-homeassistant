@@ -20,7 +20,7 @@ class PortHuTvSensor(PortHuTvEntity):
     @property
     def state(self):
         """Return the state of the sensor."""
-        return self.coordinator.data.get("channel_name")
+        return self.coordinator.data.get("actual_show_title")
 
     @property
     def icon(self):

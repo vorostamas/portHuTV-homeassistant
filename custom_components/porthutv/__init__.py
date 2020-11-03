@@ -81,16 +81,15 @@ class PortHuTvDataUpdateCoordinator(DataUpdateCoordinator):
     async def _async_update_data(self):
         """Update data via library."""
         try:
-            _LOGGER.debug("Channel ID: %s", self.channel_id)
             _LOGGER.debug("Channel Name: %s", self.channel_name)
-
             schedule = get_schedules(self.channel_id)
 
-            actual_show = get_actual_show(self.channel_id)
-            _LOGGER.debug("Actual show: %s", actual_show)
+            actual_show_title = get_actual_show(self.channel_id).get("title")
+            _LOGGER.debug("Actual show: %s", actual_show_title)
 
             data = {
                 "channel_name": self.channel_name,
+                "actual_show_title": actual_show_title,
                 "schedule": schedule,
             }
             return data
