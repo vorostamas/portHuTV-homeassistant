@@ -78,6 +78,27 @@ One possible way to show the schedules on the UI is using [List Card](https://gi
 - Some channels provide schedules for only daytime. For example, `tvchannel-2` schedule ends at 19:50, and there is a corresponding evening channel `tvchannel-361` starts after 19:50.
 - You may want to exclude the sensor from [`recorder`](https://www.home-assistant.io/integrations/recorder/), because Home Assistant will store the states in the database.
 
+<details>
+<summary>Example list-card configuration</summary>
+
+```yaml
+type: 'custom:list-card'
+entity: sensor.comedy_central
+title: Comedy Central
+feed_attribute: schedule
+row_limit: 100
+columns:
+  - title: Start
+    field: start_time
+  - title: End
+    field: end_time
+  - title: Title
+    field: title
+    add_link: film_url
+  - title: Description
+    field: short_description
+```
+</details>
 
 ## Contributions are welcome!
 
