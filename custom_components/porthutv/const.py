@@ -19,6 +19,7 @@ PLATFORMS = [SENSOR]
 CONF_ENABLED = "enabled"
 CONF_TV_CHANNEL_ID = "channel_id"
 CONF_TV_CHANNEL_NAME = "channel_name"
+CONF_TIME_ZONE = "Europe/Budapest"
 
 # Defaults
 DEFAULT_NAME = DOMAIN

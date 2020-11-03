@@ -1,14 +1,18 @@
-from datetime import date
+"""Schedule data manipulation functions for porthutv."""
+from datetime import datetime
+from dateutil.parser import parse
+import pytz
 import requests
 
-from custom_components.porthutv.const import BASE_URL, CHANNEL_DATA_URL
+from custom_components.porthutv.const import BASE_URL, CHANNEL_DATA_URL, CONF_TIME_ZONE
 
 
 def get_today_date():
     """
     Get the the for the actual day in YYYY-MM-DD format.
     """
-    return date.today().strftime("%Y-%m-%d")
+    today = datetime.now(pytz.timezone(CONF_TIME_ZONE)).strftime("%Y-%m-%d")
+    return today
 
 
 def get_channel_data(channel_id):
@@ -73,6 +77,36 @@ def get_schedules(channel_id):
     List the programs for the given channel.
     """
     channel_data = get_channel_data(channel_id)
-    schedule = exctract_schedule_details(channel_data)
+    return exctract_schedule_details(channel_data)
 
-    return schedule
+
+def parse_time(time):
+    """
+    Parse and localize time with timezone.
+    """
+    return pytz.timezone(CONF_TIME_ZONE).localize(parse(time))
+
+
+def in_between(now, start, end):
+    """
+    Determine if now is between an interval considering day overlap.
+    """
+    if start <= end:
+        return start <= now < end
+    # over midnight e.g., 23:30-00:15
+    return start <= now or now < end
+
+
+def get_actual_show(channel_id):
+    """
+    Get the ongoing TV show.
+    """
+    schedule = get_schedules(channel_id)
+    now = datetime.now(pytz.timezone(CONF_TIME_ZONE))
+    actual_show = {}
+    for show in schedule:
+        start = parse_time(show["start_time"])
+        end = parse_time(show["end_time"])
+        if in_between(now, start, end):
+            actual_show = show
+    return actual_show
