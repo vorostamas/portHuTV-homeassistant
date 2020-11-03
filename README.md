@@ -74,6 +74,10 @@ One possible way to show the schedules on the UI is using [List Card](https://gi
 ![list-card-example]
 </details>
 
+## Notes
+You may want to exclude the sensor from [`recorder`](https://www.home-assistant.io/integrations/recorder/), because Home Assistant will store the states in the database.
+
+
 ## Contributions are welcome!
 
 If you want to contribute to this please read the [Contribution guidelines](CONTRIBUTING.md)
