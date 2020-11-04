@@ -97,16 +97,35 @@ def in_between(now, start, end):
     return start <= now or now < end
 
 
-def get_actual_show(channel_id):
+def get_actual_show_index(schedule):
     """
-    Get the ongoing TV show.
+    Get the index of the actual show.
+    """
+    now = datetime.now(pytz.timezone(CONF_TIME_ZONE))
+    for i in range(len(schedule)):
+        start = parse_time(schedule[i]["start_time"])
+        end = parse_time(schedule[i]["end_time"])
+        if in_between(now, start, end):
+            return i
+    return -1
+
+
+def get_shows(channel_id):
+    """
+    Get the ongoing TV show, the previous and the next one.
     """
     schedule = get_schedules(channel_id)
-    now = datetime.now(pytz.timezone(CONF_TIME_ZONE))
+
     actual_show = {}
-    for show in schedule:
-        start = parse_time(show["start_time"])
-        end = parse_time(show["end_time"])
-        if in_between(now, start, end):
-            actual_show = show
-    return actual_show
+    previous_show = {}
+    next_show = {}
+    index = get_actual_show_index(schedule)
+    if index >= 0:
+        actual_show = schedule[index]
+        # check lower bound
+        if index - 1 >= 0:
+            previous_show = schedule[index - 1]
+        # check upper bound
+        if index + 1 <= len(schedule):
+            next_show = schedule[index + 1]
+    return actual_show, previous_show, next_show
