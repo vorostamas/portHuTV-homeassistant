@@ -86,12 +86,12 @@ class PortHuTvDataUpdateCoordinator(DataUpdateCoordinator):
 
             actual_show, previous_show, next_show = get_shows(self.channel_id)
             _LOGGER.debug("Actual show: %s", actual_show.get("title"))
-            _LOGGER.debug("Previous show: %s", previous_show.get("title"))
-            _LOGGER.debug("Next show: %s", next_show.get("title"))
 
             data = {
                 "channel_name": self.channel_name,
                 "actual_show_title": actual_show.get("title"),
+                "next_show_title": next_show.get("title"),
+                "previous_show_title": previous_show.get("title"),
                 "schedule": schedule,
             }
             return data
