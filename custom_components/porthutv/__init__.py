@@ -5,8 +5,11 @@ For more details about this integration, please refer to
 https://github.com/vorostamas/portHuTV-homeassistant
 """
 import asyncio
-from datetime import timedelta
 import logging
+from datetime import timedelta
+from datetime import datetime
+from dateutil import tz
+import pytz
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import Config, HomeAssistant
@@ -19,9 +22,10 @@ from custom_components.porthutv.const import (
     DOMAIN,
     PLATFORMS,
     STARTUP_MESSAGE,
+    CONF_TIME_ZONE,
 )
 
-from custom_components.porthutv.schedules import get_schedules
+from custom_components.porthutv.schedules import get_schedules, get_actual_show
 
 SCAN_INTERVAL = timedelta(minutes=30)
 
@@ -77,13 +81,17 @@ class PortHuTvDataUpdateCoordinator(DataUpdateCoordinator):
     async def _async_update_data(self):
         """Update data via library."""
         try:
-            _LOGGER.debug("Channel ID: %s", self.channel_id)
             _LOGGER.debug("Channel Name: %s", self.channel_name)
-
             schedule = get_schedules(self.channel_id)
-            # _LOGGER.debug("Schedule: %s", schedule)
 
-            data = {"channel_name": self.channel_name, "schedule": schedule}
+            actual_show_title = get_actual_show(self.channel_id).get("title")
+            _LOGGER.debug("Actual show: %s", actual_show_title)
+
+            data = {
+                "channel_name": self.channel_name,
+                "actual_show_title": actual_show_title,
+                "schedule": schedule,
+            }
             return data
         except Exception as exception:
             raise UpdateFailed(exception)

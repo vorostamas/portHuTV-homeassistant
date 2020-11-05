@@ -3,7 +3,7 @@
 NAME = "PortHuTv"
 DOMAIN = "porthutv"
 DOMAIN_DATA = f"{DOMAIN}_data"
-VERSION = "1.0.2"
+VERSION = "1.0.3"
 
 ISSUE_URL = "https://github.com/vorostamas/portHuTV-homeassistant/issues"
 
@@ -19,6 +19,7 @@ PLATFORMS = [SENSOR]
 CONF_ENABLED = "enabled"
 CONF_TV_CHANNEL_ID = "channel_id"
 CONF_TV_CHANNEL_NAME = "channel_name"
+CONF_TIME_ZONE = "Europe/Budapest"
 
 # Defaults
 DEFAULT_NAME = DOMAIN
