@@ -28,7 +28,11 @@ Platform | Description
 
 ## Configuration is done in the UI
 
+In the HA UI go to "Configuration" -> "Integrations" click "+" and search for "Port.hu TV".
+
 You need to add the channel ID of the TV channel. You can check the channel ID in the [`channel_mapping.json`](https://github.com/vorostamas/portHuTV-homeassistant/blob/master/custom_components/porthutv/channel_mapping.json) file.
+
+You can repeat this method to add multiple channels.
 
 ***
 
