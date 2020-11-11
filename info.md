@@ -9,11 +9,22 @@
 [![Discord][discord-shield]][discord]
 [![Community Forum][forum-shield]][forum]
 
-**This component will set up the following platform.**
+**This component will set up the following sensor:**
 
-Platform | Description
+Name | Description
 -- | --
-`sensor` | Show info of a TV channel.
+`entity_id` | `sensor.name_of_the_channel`
+`state` | The show that is live at the moment.
+
+**The sensor has the following attributes:**
+
+Attribute | Description
+-- | --
+`next_show` | The upcoming show.
+`previous_show` | The show before the ongoing one.
+`schedule` | The guide for the day.
+`friendly_name` | The name of the channel
+`icon` | `mdi:television-guide`
 
 ***
 
