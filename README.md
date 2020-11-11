@@ -42,11 +42,14 @@ Platform | Description
 4. Download _all_ the files from the `custom_components/porthutv/` directory (folder) in this repository.
 5. Place the files you downloaded in the new directory (folder) you created.
 6. Restart Home Assistant
-7. In the HA UI go to "Configuration" -> "Integrations" click "+" and search for "Port.hu TV"
 </details>
 
 ## Configuration in the UI
+In the HA UI go to "Configuration" -> "Integrations" click "+" and search for "Port.hu TV".
+
 You need to add the channel ID of the TV channel. You can check the channel ID in the [`channel_mapping.json`](https://github.com/vorostamas/portHuTV-homeassistant/blob/master/custom_components/porthutv/channel_mapping.json) file.
+
+You can repeat this method to add multiple channels.
 
 ***
 
