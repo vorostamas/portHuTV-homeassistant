@@ -25,7 +25,7 @@ from custom_components.porthutv.const import (
     CONF_TIME_ZONE,
 )
 
-from custom_components.porthutv.schedules import get_schedules, get_actual_show
+from custom_components.porthutv.schedules import get_schedules, get_shows
 
 SCAN_INTERVAL = timedelta(minutes=30)
 
@@ -84,12 +84,14 @@ class PortHuTvDataUpdateCoordinator(DataUpdateCoordinator):
             _LOGGER.debug("Channel Name: %s", self.channel_name)
             schedule = get_schedules(self.channel_id)
 
-            actual_show_title = get_actual_show(self.channel_id).get("title")
-            _LOGGER.debug("Actual show: %s", actual_show_title)
+            actual_show, previous_show, next_show = get_shows(self.channel_id)
+            _LOGGER.debug("Actual show: %s", actual_show.get("title"))
 
             data = {
                 "channel_name": self.channel_name,
-                "actual_show_title": actual_show_title,
+                "actual_show_title": actual_show.get("title"),
+                "next_show_title": next_show.get("title"),
+                "previous_show_title": previous_show.get("title"),
                 "schedule": schedule,
             }
             return data
