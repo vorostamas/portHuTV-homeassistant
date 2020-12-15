@@ -110,9 +110,9 @@ def get_actual_show_index(schedule):
     return -1
 
 
-def get_shows(channel_id):
+def get_attributes(channel_id):
     """
-    Get the ongoing TV show, the previous and the next one.
+    Get the ongoing TV show, the previous and next show, plus all schedule for the day.
     """
     schedule = get_schedules(channel_id)
 
@@ -128,4 +128,4 @@ def get_shows(channel_id):
         # check upper bound
         if index + 1 <= len(schedule):
             next_show = schedule[index + 1]
-    return actual_show, previous_show, next_show
+    return actual_show, previous_show, next_show, schedule
