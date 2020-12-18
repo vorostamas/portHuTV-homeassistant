@@ -25,7 +25,7 @@ from custom_components.porthutv.const import (
     CONF_TIME_ZONE,
 )
 
-from custom_components.porthutv.schedules import get_schedules, get_shows
+from custom_components.porthutv.schedules import get_schedules, get_attributes
 
 SCAN_INTERVAL = timedelta(minutes=30)
 
@@ -75,6 +75,7 @@ class PortHuTvDataUpdateCoordinator(DataUpdateCoordinator):
         self.platforms = []
         self.channel_id = channel_id
         self.channel_name = channel_name
+        self.hass = hass
 
         super().__init__(hass, _LOGGER, name=DOMAIN, update_interval=SCAN_INTERVAL)
 
@@ -82,9 +83,14 @@ class PortHuTvDataUpdateCoordinator(DataUpdateCoordinator):
         """Update data via library."""
         try:
             _LOGGER.debug("Channel Name: %s", self.channel_name)
-            schedule = get_schedules(self.channel_id)
 
-            actual_show, previous_show, next_show = get_shows(self.channel_id)
+            (
+                actual_show,
+                previous_show,
+                next_show,
+                schedule,
+            ) = await self.hass.async_add_executor_job(get_attributes, self.channel_id)
+
             _LOGGER.debug("Actual show: %s", actual_show.get("title"))
 
             data = {
