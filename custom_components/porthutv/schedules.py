@@ -51,9 +51,9 @@ def exctract_schedule_details(channel_information):
     for program in schedule:
         title = program["title"]
         start_time = program["start_time"]
+        start_datetime = program["start_datetime"]
         end_time = program["end_time"]
-        # start_datetime = parse(program["start_datetime"])
-        # end_datetime = parse(program["end_datetime"])
+        end_datetime = program["end_datetime"]
         episode_title = program["episode_title"] or ""
         short_description = program["short_description"]
         film_url = BASE_URL + program["film_url"] if program["film_url"] else ""
@@ -62,7 +62,9 @@ def exctract_schedule_details(channel_information):
         channel_program = {}
         channel_program["title"] = title
         channel_program["start_time"] = start_time
+        channel_program["start_datetime"] = start_datetime
         channel_program["end_time"] = end_time
+        channel_program["end_datetime"] = end_datetime
         channel_program["episode_title"] = episode_title
         channel_program["short_description"] = short_description
         channel_program["film_url"] = film_url
@@ -103,8 +105,8 @@ def get_actual_show_index(schedule):
     """
     now = datetime.now(pytz.timezone(CONF_TIME_ZONE))
     for i in range(len(schedule)):
-        start = parse_time(schedule[i]["start_time"])
-        end = parse_time(schedule[i]["end_time"])
+        start = parse(schedule[i]["start_datetime"])
+        end = parse(schedule[i]["end_datetime"])
         if in_between(now, start, end):
             return i
     return -1
