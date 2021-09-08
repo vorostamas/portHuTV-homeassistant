@@ -1,6 +1,6 @@
 """Adds config flow for PortHuTV."""
 from homeassistant import config_entries
-from homeassistant.core import callback
+from homeassistant.core import callback, HomeAssistant
 import voluptuous as vol
 
 from custom_components.porthutv.const import (
@@ -22,6 +22,7 @@ class PortHuTvFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     def __init__(self):
         """Initialize."""
         self._errors = {}
+        self.hass = HomeAssistant()
 
     async def async_step_user(
         self, user_input=None  # pylint: disable=bad-continuation
@@ -36,7 +37,9 @@ class PortHuTvFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             valid = await self._validate_input(user_input[CONF_TV_CHANNEL_ID])
             if valid:
-                channel_name = get_channel_name(user_input[CONF_TV_CHANNEL_ID])
+                channel_name = await self.hass.async_add_executor_job(
+                    get_channel_name, user_input[CONF_TV_CHANNEL_ID]
+                )
                 user_input["channel_name"] = channel_name
                 return self.async_create_entry(title=channel_name, data=user_input)
             else:
