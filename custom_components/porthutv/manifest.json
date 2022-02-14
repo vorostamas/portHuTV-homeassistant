@@ -8,6 +8,7 @@
   "codeowners": [
     "@vorostamas"
   ],
-  "version": "1.0.6",
-  "requirements": []
+  "version": "1.0.7",
+  "requirements": [],
+  "iot_class": "cloud_polling"
 }
