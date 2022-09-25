@@ -63,7 +63,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
                 hass.config_entries.async_forward_entry_setup(entry, platform)
             )
 
-    entry.add_update_listener(async_reload_entry)
+    entry.async_on_unload(entry.add_update_listener(async_reload_entry))
     return True
 
 
@@ -92,6 +92,7 @@ class PortHuTvDataUpdateCoordinator(DataUpdateCoordinator):
             ) = await self.hass.async_add_executor_job(get_attributes, self.channel_id)
 
             _LOGGER.debug("Actual show: %s", actual_show.get("title"))
+            _LOGGER.debug("Next show: %s", next_show.get("title"))
 
             data = {
                 "channel_name": self.channel_name,
