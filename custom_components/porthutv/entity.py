@@ -24,8 +24,8 @@ class PortHuTvEntity(CoordinatorEntity):
         }
 
     @property
-    def device_state_attributes(self):
-        """Return the state attributes."""
+    def extra_state_attributes(self):
+        """Return entity specific state attributes."""
         return {
             "next_show": self.coordinator.data.get("next_show_title"),
             "previous_show": self.coordinator.data.get("previous_show_title"),
