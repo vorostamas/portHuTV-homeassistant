@@ -4,9 +4,9 @@
         "step": {
             "user": {
                 "title": "Port.hu Tv",
-                "description": "If you need help with the configuration have a look here: https://github.com/vorostamas/portHuTV-homeassistant",
+                "description": "If you need help with the configuration have a look here: https://github.com/vorostamas/portHuTV-homeassistant#configuration-in-the-ui",
                 "data": {
-                    "channel_id": "TV Channel ID"
+                    "channel_id": "TV Channel ID, for example tvchannel-5"
                 }
             }
         },

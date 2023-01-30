@@ -47,6 +47,10 @@ class PortHuTvFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 
             return await self._show_config_form(user_input)
 
+        user_input = {}
+        # Provide defaults for form
+        user_input[CONF_TV_CHANNEL_ID] = ""
+
         return await self._show_config_form(user_input)
 
     @staticmethod
@@ -58,7 +62,13 @@ class PortHuTvFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         """Show the configuration form to edit location data."""
         return self.async_show_form(
             step_id="user",
-            data_schema=vol.Schema({vol.Required(CONF_TV_CHANNEL_ID): str}),
+            data_schema=vol.Schema(
+                {
+                    vol.Required(
+                        CONF_TV_CHANNEL_ID, default=user_input[CONF_TV_CHANNEL_ID]
+                    ): str
+                }
+            ),
             errors=self._errors,
         )
 
